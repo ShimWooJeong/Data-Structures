@@ -93,8 +93,34 @@ int main()
 
 void levelOrderTraversal(BSTNode* root)
 {
+	//Root 노드에서 시작해서 이진 트리의 레벨별 순회를 출력(큐 사용)
+	//큐가 비어있지 않은 경우 큐 비우기
 
-    /* add your code here */
+	Queue temp; //함수 내에서만 쓰이는 임시 변수기 때문에 포인터로 선언할 필요가 없음
+	temp.head = NULL;
+	temp.tail = NULL;
+
+	if(root != NULL){ //root가 Null이 아니면 enq
+		enqueue(&(temp.head), &(temp.tail), root);
+	}
+
+	while(!isEmpty(temp.head)){ //큐가 비어있지 않은 동안 반복
+		BSTNode *currentNode = dequeue(&(temp.head), &(temp.tail)); //큐에서 노드를 제거하고 해당 노드 값 출력
+		printf("%d ", currentNode->item);
+
+		if(currentNode->left != NULL){ //현재 노드가 왼쪽&오른쪽 자식이 있으면 큐에 추가
+			enqueue(&(temp.head), &(temp.tail), currentNode->left);
+		}
+		if(currentNode->right != NULL){
+			enqueue(&(temp.head), &(temp.tail), currentNode->right);
+		}
+	}
+
+	while (!isEmpty(temp.head)) //모든 노드 방문한 후 큐 비우기
+	{
+		dequeue(&(temp.head), &(temp.tail));
+	}
+	
 }
 
 ///////////////////////////////////////////////////////////////////////////////

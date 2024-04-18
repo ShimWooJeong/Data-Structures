@@ -91,14 +91,46 @@ int main()
 
 void postOrderIterativeS2(BSTNode *root)
 {
-	 /* add your code here */
+	//postOrder(후위순회): 왼 -> 오 -> 루트
+	//출력: 10, 18, 15, 25, 80, 50, 20
+	Stack temp1, temp2;
+	temp1.top = NULL; //현재 노드의 자식들을 저장하는 스택
+	temp2.top = NULL; //후위 순회 순서대로 노드를 저장하는 스택
+
+	BSTNode *currrentNode = root;
+
+	push(&temp1, root); //temp1에 root 넣고 시작
+
+	while(currrentNode != NULL || !isEmpty(&temp1)){
+		currrentNode = pop(&temp1); //temp1에서 노드를 pop해서 처리할 노드 current로 할당
+		if(currrentNode->left != NULL){ //왼쪽 자식이 있다면 Push
+			push(&temp1, currrentNode->left);
+		}
+		if(currrentNode->right != NULL){ //오른쪽 자식이 있다면 Push
+				push(&temp1, currrentNode->right);
+		}
+		push(&temp2, currrentNode); //후위 순서대로 temp2에 Push
+		currrentNode = NULL; //다음 반복 때 temp1에서 pop한 노드를 currentNode로 해줘야하니까 NULL로 설정
+	}
+	//후위순서대로 stack1에 넣고, stack2에 거꾸로 넣기 때문에
+	//결국 stack2에서 pop&printf 할 때 올바르게 나옴
+	while(!isEmpty(&temp2))
+	{
+		//Temp2가 빌 때까지 pop해서 출력하면 후위순회한 결과 Ouput
+		currrentNode = pop(&temp2);
+		printf("%d ", currrentNode->item);
+	}
 }
 
 /* Given a binary search tree and a key, this function
    deletes the key and returns the new root. Make recursive function. */
 BSTNode* removeNodeFromTree(BSTNode *root, int value)
 {
-	/* add your code here */
+	//이진 탐색 트리 삭제
+	//1. left == NULL && right == NULL -> 그냥 delete, parent의 연결을 NULL?
+	//2. left == NULL || right == NULL -> parent랑 not NULL인 노드랑 연결
+	//3. left != NULL && right != NULL -> Lmax or Rmin이랑 바꾸고 바꾼 쪽 노드의 연결을 NULL
+
 }
 ///////////////////////////////////////////////////////////////////////////////
 

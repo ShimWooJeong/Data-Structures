@@ -90,7 +90,25 @@ int main()
 
 void inOrderTraversal(BSTNode *root)
 {
-	 /* add your code here */
+	//inOrder(중위순회): 왼 -> 루트 -> 오
+	Stack temp;
+	temp.top = NULL;
+
+	BSTNode *currentNode = root;
+
+	while(currentNode != NULL || !isEmpty(&temp)){
+		while (currentNode != NULL) //왼쪽 자식 노드로 이동하며 스택에 push
+		{
+			push(&temp, currentNode);
+			currentNode = currentNode->left;
+		}
+		
+		currentNode = pop(&temp); //스택에서 노드 pop해서 출력
+		printf("%d ", currentNode->item);
+		
+		currentNode = currentNode->right; //오른쪽 자식 노드로 이동
+	}
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////

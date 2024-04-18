@@ -102,7 +102,62 @@ int main()
 
 void frontBackSplitLinkedList(LinkedList *ll, LinkedList *resultFrontList, LinkedList *resultBackList)
 {
-	/* add your code here */
+	ListNode *current = ll->head;
+	int index = 0;
+
+	while(current != NULL){
+		current = current->next;
+		index++;
+	}
+	ListNode *cur_front = NULL;
+	ListNode *cur_back = NULL;
+
+	int split;
+    if (index % 2 == 0) { //연결 리스트가 짝수개일 때
+        split = index / 2 - 1;
+    } else { //연결 리스트가 홀수개일 때
+        split = index / 2;
+    }
+	int i = 0;
+	current = ll->head;
+
+	while(current != NULL){
+		if(i <= split){
+			if(resultFrontList->head == NULL){
+				resultFrontList->head = current;
+				cur_front = resultFrontList->head;
+			}else{
+				cur_front->next = current;
+				cur_front = cur_front->next;
+			}
+			resultFrontList->size++;
+		}else{
+			if(resultBackList->head == NULL){
+				resultBackList->head = current;
+				cur_back = resultBackList->head;
+			}else{
+				cur_back->next = current;
+				cur_back = cur_back->next;
+			}
+			resultBackList->size++;
+		}
+		current = current->next;
+		ll->head = current;
+		i++;
+	}
+	
+	if(ll->head != NULL){
+		ll->head = NULL;
+	}
+
+	if(cur_front != NULL){
+		cur_front->next = NULL;
+	}
+	if(cur_back != NULL){
+		cur_back->next = NULL;
+	}
+
+	return;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////

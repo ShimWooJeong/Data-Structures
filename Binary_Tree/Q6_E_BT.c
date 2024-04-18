@@ -105,7 +105,17 @@ int main()
 
 void printSmallerValues(BTNode *node, int m)
 {
-	/* add your code here */
+	//트리에서 주어진 m보다 작은 정수를 print하는 함수
+    if(node == NULL){
+        return;
+    }
+
+    if(node->item < m){ //노드 값이 m보다 작다면 출력
+        printf("%d ", node->item);
+    }
+
+    printSmallerValues(node->left, m); //왼쪽 서브트리에 대한 재귀
+    printSmallerValues(node->right, m); //오른쪽 서브트리에 대한 재귀
 }
 
 //////////////////////////////////////////////////////////////////////////////////

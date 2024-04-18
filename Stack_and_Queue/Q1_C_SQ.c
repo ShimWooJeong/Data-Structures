@@ -116,12 +116,47 @@ int main()
 
 void createQueueFromLinkedList(LinkedList *ll, Queue *q)
 {
-	/* add your code here */
+	//연결 리스트에 저장된 모든 정수를 enqueue해 큐 만들기
+
+	ListNode *current = ll->head;
+
+	if(ll->head == NULL){
+		return;
+	}
+
+	if(isEmptyQueue(q) == 0){ //큐가 비어있지 않으면, 큐 비우기
+		removeAllItemsFromQueue(q);
+	}
+
+	while(current != NULL){ //연결 리스트 순회하면서 item 큐에 enqueue;
+		enqueue(q, current->item);
+		current = current->next;
+	}
+
+	removeAllItems(ll); //다 넣은 후 연결 리스트 비우기
 }
 
 void removeOddValues(Queue *q)
 {
-	/* add your code here */
+	//큐에서 홀수 value 지우기, 즉 짝수만 남기기
+	if(isEmptyQueue(q) == 1){ //큐가 비어있으면 return
+		return;
+
+	}
+	
+	Queue *evenQueue = malloc(sizeof(Queue)); //짝수 저장할 Queue temp, 얼마나 들어갈 지 모르니까 동적 할당
+
+	ListNode *cur = q->ll.head;
+
+	while (cur != NULL){ //매개변수 큐의 연결 리스트를 순회하면서
+		if(cur->item %2 == 0){ //값이 짝수라면
+			enqueue(evenQueue, cur->item); //짝수 temp에 enqueue
+		}
+		cur = cur->next;
+	}
+
+	q->ll = evenQueue->ll; //원본 큐의 ll를 짝수 큐의 ll로,
+	free(evenQueue);
 }
 
 //////////////////////////////////////////////////////////////////////////////////

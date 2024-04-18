@@ -113,12 +113,46 @@ int main()
 
 void createStackFromLinkedList(LinkedList *ll, Stack *s)
 {
-    /* add your code here */
+	//연결리스트에 저장된 모든 정수를 Stack으로 만들기
+	if(ll->size == 0){ //연결 리스트가 비어있다면 return
+		return;
+	}
+
+	if(isEmptyStack(s) ==0){ //스택이 비어있지 않은 경우, 비워주고 시작
+		removeAllItemsFromStack(s);
+	}
+
+	ListNode *current = ll->head; //연결리스트를 순회하면서 stack에 Push
+	while (current != NULL)
+	{
+		push(s, current->item);
+		current = current->next;
+	}
+	
+	removeAllItems(ll); //다 넣어주고 연결 리스트 비우기
 }
 
 void removeEvenValues(Stack *s)
 {
-	/* add your code here */
+	//stack의 짝수 제외하기, 즉 홀수만 남기기
+
+	if(isEmptyStack(s) == 1){ //stack 비어있으면 Return
+		return;
+	}
+
+	Stack *oddstack = malloc(sizeof(Stack)); //홀수 저장할 Stack temp, 얼마나 넣을지 모르니 동적 할당
+
+	ListNode *cur = s->ll.head;
+	
+	while(cur != NULL){ //연결 리스트 순회하면서
+		if(cur->item %2 != 0){ //짝수가 아니라면
+			push(oddstack, cur->item); //홀수 stack에 Push
+		}
+		cur = cur->next;
+	}
+
+	s->ll = oddstack->ll; //원본 stack의 ll를 홀수 stack의 ll로,
+	free(oddstack);
 }
 
 //////////////////////////////////////////////////////////////////////////////////

@@ -80,6 +80,7 @@ int main()
 		case 2:
             if(isStackPairwiseConsecutive(&s))
             {
+				printf("The stack is: ");
                 printf("The stack is pairwise consecutive.\n");
             }
             else{
@@ -103,14 +104,35 @@ int main()
 
 int isStackPairwiseConsecutive(Stack *s)
 {
-  /* add your code here */
+	if(isEmptyStack(s) == 1){
+		return;
+	}
+
+	//스택의 숫자가 쌍으로 연속인지 여부 확인
+	if(s->ll.size %2 != 0){
+		//스택 개수가 홀수라면 return 0;
+		return 0;
+	}
+
+	
+	while(isEmptyStack(s) != 1){
+		int front, back; //스택에서 두 개 연속 빼서 둘이 비교
+		front = pop(s);
+		back = pop(s);
+
+		if(front-back == 1 || front-back == -1){
+			continue;
+		}else{
+			return 0; //0이 False
+		}
+	}
+	return 1; //모든 쌍을 검사했는데도 쌍이 연속이지 않았던 적이 없음 = return True;
 }
 
 //////////////////////////////////////////////////////////////////////////////////
 
 void push(Stack *s, int item){
-   insertNode(&(s->ll), 0, item);
-}
+   insertNode(&(s->ll), 0, item);}
 
 int pop(Stack *s){
    int item;

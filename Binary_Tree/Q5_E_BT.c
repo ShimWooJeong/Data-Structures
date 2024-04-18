@@ -105,7 +105,20 @@ int main()
 
 void mirrorTree(BTNode *node)
 {
-	/* add your code here */
+	if(node == NULL){
+        return;
+    }
+
+    BTNode *tempL = node->left; //swap하기 전 왼쪽 노드와
+    BTNode *tempR = node->right; //오른쪽 노드 temp에 저장해놓음
+
+    node->left = tempR; //왼 = 오
+    node->right = tempL; //오 = 왼 swap
+    //어차피 한쪽이 NULL이어도 swap 가능하니까 올바르게 Mirror됨
+
+    mirrorTree(node->left); //왼쪽 서브트리에 대한 재귀
+    mirrorTree(node->right); //오른쪽 서브트리에 대한 재귀
+
 }
 
 //////////////////////////////////////////////////////////////////////////////////

@@ -111,7 +111,25 @@ int main()
 
 void removeUntil(Stack *s, int value)
 {
-/* add your code here */
+	//ex. stack(1,2,3,4,5,6,7), value=4
+	//	  result = (4,5,6,7)
+	
+	if(isEmptyStack(s) == 1){
+		return;
+	}
+	Stack *temp = malloc(sizeof(Stack));
+
+	ListNode *cur = s->ll.head;
+
+	while(cur->item != value){ //item == value 될 때까지 temp에 담고
+		push(temp, cur->item);
+		cur = cur->next;
+	}
+
+	push(temp, cur->item); //item == value인 것도 담음
+	s->ll = temp->ll;
+
+	free(temp);
 }
 
 //////////////////////////////////////////////////////////////////////////////////

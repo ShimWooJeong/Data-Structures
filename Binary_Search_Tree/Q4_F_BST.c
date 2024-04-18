@@ -91,7 +91,33 @@ int main()
 
 void postOrderIterativeS1(BSTNode *root)
 {
-	 /* add your code here */
+	//postOrder(후위순회): 왼 -> 오 -> 루트
+	//출력: 10, 18, 15, 25, 80, 50, 20
+	Stack temp;
+	temp.top = NULL;
+
+	BSTNode *currentNode = root;
+	BSTNode *lastVisited = NULL; //마지막 방문한 노드 기록
+
+	while(currentNode != NULL || !isEmpty(&temp)){
+		while (currentNode != NULL)
+		{
+			//왼쪽 자식들 스택에 push
+			push(&temp, currentNode);
+			currentNode = currentNode->left;
+		}
+		
+		BSTNode *peekNode = peek(&temp); //스택의 가장 상단 노드(현재 노드)
+		if(peekNode->right == NULL || peekNode->right == lastVisited){ //현재 노드의 오른쪽이 비어있거나, 이미 방문했다면
+			currentNode = pop(&temp); //pop해서 출력
+			printf("%d ", currentNode->item);
+			lastVisited = currentNode; //방문 노드 갱신
+			currentNode = NULL; //오른쪽 노드로 이동하지 않도록 NULL로 설정
+			// Null 안 해주면 -> cur이 Null이 아니기 때문에 마지막 10이 push&pop 무한 반복
+		}else{ //오른쪽이 비어있지 않거나, 방문하지 않았다면
+			currentNode = peekNode->right; //오른쪽 노드로 이동
+		}	
+	}
 }
 
 ///////////////////////////////////////////////////////////////////////////////

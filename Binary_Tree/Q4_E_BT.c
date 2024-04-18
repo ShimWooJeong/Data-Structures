@@ -78,7 +78,7 @@ int main()
                 break;
             case 2:
                 oddValueCount = sumOfOddNodes(root);
-                printf("The sum of all odd numbers in the binary tree is: %d.\n",oddValueCount);
+                printf("The sum of all odd numbers in the binary tree is: %d\n",oddValueCount);
                 removeAll(&root);
                 break;
             case 0:
@@ -103,7 +103,20 @@ int main()
 int sumOfOddNodes(BTNode *node)
 
 {
-    /* add your code here */
+    if(node == NULL){
+        return 0;
+    }
+
+    int cnt = 0;
+
+    if(node->item %2 != 0){ //값이 홀수라면
+        cnt += node->item;
+    }
+
+    cnt += sumOfOddNodes(node->left); //왼쪽 서브트리에 대해 재귀
+    cnt += sumOfOddNodes(node->right); //오른쪽 서브트리에 대해 재귀
+
+    return cnt;
 }
 
 //////////////////////////////////////////////////////////////////////////////////

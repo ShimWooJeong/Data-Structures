@@ -80,6 +80,7 @@ int main()
                 printf("\nThe values stored in all nodes of the tree that has at least one great-grandchild are: ");
                 hasGreatGrandchild(root);
                 removeAll(&root);
+                printf("\n");
                 break;
             case 0:
                 removeAll(&root);
@@ -102,7 +103,22 @@ int main()
 
 int hasGreatGrandchild(BTNode *node)
 {
-	/* add your code here */
+	//GreatGrandChild: 트리의 노드에서 시작해 정확히 세 단계 아래에 있는 노드, 즉 자식의 자식인 경우 삼대손
+    //하나 이상의 삼대손을 가지고 있는 모든 노드의 값을 출력(Depth=3)
+    if(node == NULL){
+        return 0;
+    }
+    int left, right, depth = 0;
+
+    left = 1 + hasGreatGrandchild(node->left); //왼쪽 서브트리의 depth 계산, 재귀를 돌리며 1+
+    right = 1 + hasGreatGrandchild(node->right); //오른쪽 서브트리의 depth 계산, 재귀 돌리며 1+
+    depth = (left<right ? right:left); //둘 중 더 깊은 depth 판단
+
+    if(left > 3 || right > 3){ //왼&오 중에 하나라도 3보다 크다면 해당 노드는 GGC를 가지고 있는 노드, 값 출력
+        //재귀할 때 1+를 해주기 때문에 실제 보다 +1인 상태, 그러니까 3초과로 판단해야 함
+        printf("%d ", node->item);
+    }
+    return depth; //depth 반환
 }
 
 //////////////////////////////////////////////////////////////////////////////////

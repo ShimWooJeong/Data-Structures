@@ -104,7 +104,43 @@ int main()
 ////////////////////////////////////////////////////////////
 int balanced(char *expression)
 {
-/* add your code here */
+	int size = 0; //문자열 길이
+	for(int i=0; expression[i] != '\0'; i++){
+		size++;
+	}
+
+	if(size % 2 == 1){ //문자열이 홀수면
+		return 1; //어차피 not balanced
+		//**main함수에서 1이면 False, 0이면 True;;로 되어있음;;
+	}
+	
+	Stack *temp = malloc(sizeof(Stack));
+	char a;
+	for(int i=0; expression[i] != '\0'; i++){
+		if(expression[i]=='{' || expression[i]=='[' || expression[i]=='('){ //여는 괄호면 stack에 넣고
+			push(temp, expression[i]);
+		}else{ //닫는 괄호면 stack에서 pop해서 비교하기
+			a = pop(temp);
+			if(a == '{'){
+				if(expression[i] != '}'){
+					free(temp);
+					return 1;
+				}
+			}else if(a == '['){
+				if(expression[i] != ']'){
+					free(temp);
+					return 1;
+				}
+			}else if(a == '('){
+				if(expression[i] != ')'){
+					free(temp);
+					return 1;
+				}
+			}
+		}
+	}
+	free(temp);
+	return 0;
 }
 
 ////////////////////////////////////////////////////////////

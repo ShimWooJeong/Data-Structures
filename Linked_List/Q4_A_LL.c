@@ -86,7 +86,48 @@ int main()
 
 void moveEvenItemsToBack(LinkedList *ll)
 {
-	/* add your code here */
+	//홀수 앞, 짝수 뒤
+	
+	if(ll == NULL || ll->size == 0){
+		return;
+	}
+
+	ListNode *current = ll->head;
+	ListNode *evenList = NULL; //짝수 리스트
+	ListNode *evenTail = NULL; //짝수 리스트의 꼬리
+	ListNode *prev = NULL; //이전 짝수 노드 temp
+	//이전 노드 추적?: '이전 홀수 노드(prev)->next = 다음 current 노드'로 설정함으로서 짝수를 ll에서 제거하기 위함
+
+	while(current != NULL){
+		if(current->item %2 == 0){ //짝수일 경우
+			if(evenList == NULL){ //짝수 노드가 처음 발견된 경우
+				evenList = current;
+				evenTail = current;
+			}else{ //이미 짝수 노드가 있었던 경우
+				evenTail->next = current;
+				evenTail = current;
+			}
+
+			if(prev == NULL){
+				ll->head = current->next;
+			}else{
+				prev->next = current->next;
+			}
+		}else{ //홀수인 경우
+			prev = current;
+		}
+		current = current->next;
+	}
+
+	if(evenList != NULL){
+		if(prev != NULL){
+			prev->next = evenList;
+		}else{
+			ll->head = evenList;
+		}
+		evenTail->next = NULL;
+	}
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////////

@@ -95,9 +95,24 @@ int main()
 //////////////////////////////////////////////////////////////////////////////////
 
 int maxHeight(BTNode *node)
-
 {
-    /* add your code here */
+   //루트 노드에서 리프 노드로 내려오는 경로 중 가장 긴 값 반환(가장 먼 리프노드까지의 높이)
+   //빈 트리의 높이는 -1
+    if(node == NULL){
+        return -1;
+    }
+    int leftmax, rightmax;
+
+    leftmax = maxHeight(node->left);
+    rightmax = maxHeight(node->right);
+
+    if(leftmax>rightmax){
+        return 1+leftmax;
+    }else if(leftmax<rightmax){
+        return 1+rightmax;
+    }else if(leftmax == rightmax){
+        return 1+rightmax;
+    }//node==NULL일 때 -1 해버리니까 +1 해줘야 함
 }
 
 ///////////////////////////////////////////////////////////////////////////////////

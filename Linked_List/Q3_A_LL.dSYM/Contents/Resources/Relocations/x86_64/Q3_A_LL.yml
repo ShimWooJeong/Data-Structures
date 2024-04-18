@@ -1,0 +1,13 @@
+---
+triple:          'x86_64-apple-darwin'
+binary-path:     '/Users/sim-woojeong/Jungle_WEEK04/Data-Structures/Linked_List/Q3_A_LL'
+relocations:
+  - { offsetInCU: 0x26, offset: 0x26, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x0, symBinAddr: 0x100003790, symSize: 0x160 }
+  - { offsetInCU: 0x41, offset: 0x41, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x0, symBinAddr: 0x100003790, symSize: 0x160 }
+  - { offsetInCU: 0x93, offset: 0x93, size: 0x8, addend: 0x0, symName: _insertNode, symObjAddr: 0x160, symBinAddr: 0x1000038F0, symSize: 0x140 }
+  - { offsetInCU: 0xF3, offset: 0xF3, size: 0x8, addend: 0x0, symName: _printList, symObjAddr: 0x2A0, symBinAddr: 0x100003A30, symSize: 0x90 }
+  - { offsetInCU: 0x125, offset: 0x125, size: 0x8, addend: 0x0, symName: _moveOddItemsToBack, symObjAddr: 0x330, symBinAddr: 0x100003AC0, symSize: 0x130 }
+  - { offsetInCU: 0x181, offset: 0x181, size: 0x8, addend: 0x0, symName: _removeAllItems, symObjAddr: 0x460, symBinAddr: 0x100003BF0, symSize: 0x70 }
+  - { offsetInCU: 0x1C1, offset: 0x1C1, size: 0x8, addend: 0x0, symName: _findNode, symObjAddr: 0x4D0, symBinAddr: 0x100003C60, symSize: 0xC0 }
+  - { offsetInCU: 0x205, offset: 0x205, size: 0x8, addend: 0x0, symName: _removeNode, symObjAddr: 0x590, symBinAddr: 0x100003D20, symSize: 0x10D }
+...

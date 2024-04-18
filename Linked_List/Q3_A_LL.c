@@ -86,8 +86,58 @@ int main()
 
 void moveOddItemsToBack(LinkedList *ll)
 {
-	/* add your code here */
+	//짝수 앞, 홀수 뒤
+	
+	if(ll == NULL || ll->size == 0){
+		return;
+	}
+
+	LinkedList *oddList = malloc(sizeof(LinkedList));
+	oddList->head = NULL;
+	LinkedList *evenList = malloc(sizeof(LinkedList));
+	evenList->head = NULL;
+
+	ListNode *cur = ll->head;
+	ListNode *even_tail = NULL;
+	ListNode *odd_tail = NULL;
+
+	while(cur != NULL){
+		if(cur->item %2 == 0){ //짝수
+			if(evenList->head == NULL){
+				evenList->head = cur;
+				even_tail = evenList->head;
+				//even_tail->next = NULL;
+			}else{
+				even_tail->next = cur;
+				even_tail = even_tail->next;
+				//even_tail->next = NULL;
+			}
+		}else{
+			if(oddList->head == NULL){
+				oddList->head = cur;
+				odd_tail = cur;
+				//odd_tail->next = NULL;
+			}else{
+				odd_tail->next = cur;
+				odd_tail = cur;
+				//odd_tail->next = NULL; 걍 마지막에만 해줘도 됨
+			}
+		}
+		cur = cur->next;
+	}
+	if(even_tail != NULL){
+		even_tail->next = NULL;
+	}
+	if(odd_tail != NULL){
+		odd_tail->next = NULL;
+	}
+
+	even_tail->next = oddList->head;
+	ll->head = evenList->head;
+	free(oddList);
+	free(evenList);
 }
+
 
 ///////////////////////////////////////////////////////////////////////////////////
 
